@@ -42,7 +42,7 @@ class UserData(Args):
 
 
 #tax_income
-class IncomeTax():
+class IncomeTax(UserData):
     comployeedata = []
     #salary after tax
     def calc_fordata(self):
@@ -57,28 +57,28 @@ class IncomeTax():
             taxwage = oneid[1] - sstax
 # tax_oneself
               
-	    if taxwage<=0:
-    	        tax_self = 0
-	    elif taxwage<=1500:
-   		tax_self = taxwage*0.03
-	    elif taxwage<=4500:
-   		tax_sel f= taxwage*0.1-105
-	    elif taxwage<=9000:
-   		tax_self = taxwage*0.2-555
-	    elif taxwage<=35000:
-   		tax_self =  taxwage*0.25-1005
-	    elif taxwage<=55000:
-   	        tax_self = taxwage*0.3-2755
-	    elif taxwage<=80000:
-   		tax_self = taxwage*0.35-5505
-	    else:
-   		tax_self = taxwage*0.45-13505
-        	get_money = oneid[1] - sstax - tax_self
-        comployeedata = [oneid[0], oneid[1], sstax, tax_self, get_money ]
-        return comployeedata
+            if taxwage<=0:
+                tax_self = 0
+            elif taxwage<=1500:
+                tax_self = taxwage*0.03
+            elif taxwage<=4500:
+                tax_self= taxwage*0.1-105
+            elif taxwage<=9000:
+                tax_self = taxwage*0.2-555
+            elif taxwage<=35000:
+                tax_self =  taxwage*0.25-1005
+            elif taxwage<=55000:
+                tax_self = taxwage*0.3-2755
+            elif taxwage<=80000:
+                tax_self = taxwage*0.35-5505
+            else:
+                tax_self = taxwage*0.45-13505
+                get_money = oneid[1] - sstax - tax_self
+            comployeedata = [oneid[0], oneid[1], sstax, tax_self, get_money ]
+            return comployeedata
 
     #output csv file
-    def export(self, default = 'csv')
+    def export(self, default = 'csv'):
         result = self.calc_fordata()
         with open(sys.argv[3]) as f:
             writer = csv.writer(f)
@@ -87,7 +87,7 @@ class IncomeTax():
 #exec
 
 if __name__=='__main__':   
- 
+    get_money = IncomeTax() 
     for arg in sys.argv[1:]:
-        print('{0},{1},{2:.2f},{3:.2f},{4:.2f}'.format(self.calc_fordata()))
+        print('{0},{1},{2:.2f},{3:.2f},{4:.2f}'.format(get_money.calc_fordata()))
 
