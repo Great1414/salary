@@ -55,30 +55,27 @@ class IncomeTax():
             else:
                 sstax = oneid[1]*0.165           
             taxwage = oneid[1] - sstax
+# tax_oneself
               
-
-    #tax for oneself
-   # def tax(taxwage):
-
-     	if taxwage<=0:
-	    tax_self = 0
-        elif taxwage<=1500:
-	    tax_self = taxwage*0.03
-	elif taxwage<=4500:
-	    tax_sel f= taxwage*0.1-105
-	elif taxwage<=9000:
-	    tax_self = taxwage*0.2-555
-	elif taxwage<=35000:
-	    tax_self =  taxwage*0.25-1005
-	elif taxwage<=55000:
-	    tax_self = taxwage*0.3-2755
-	elif taxwage<=80000:
-	    tax_self = taxwage*0.35-5505
-	else:
-	    tax_self = taxwage*0.45-13505
-	get_money = oneid[1] - sstax - tax_self
-       	comployeedata = [oneid[0], oneid[1], sstax, tax_self, get_money ]
-       return comployeedata
+	    if taxwage<=0:
+    	        tax_self = 0
+	    elif taxwage<=1500:
+   		tax_self = taxwage*0.03
+	    elif taxwage<=4500:
+   		tax_sel f= taxwage*0.1-105
+	    elif taxwage<=9000:
+   		tax_self = taxwage*0.2-555
+	    elif taxwage<=35000:
+   		tax_self =  taxwage*0.25-1005
+	    elif taxwage<=55000:
+   	        tax_self = taxwage*0.3-2755
+	    elif taxwage<=80000:
+   		tax_self = taxwage*0.35-5505
+	    else:
+   		tax_self = taxwage*0.45-13505
+        	get_money = oneid[1] - sstax - tax_self
+        comployeedata = [oneid[0], oneid[1], sstax, tax_self, get_money ]
+        return comployeedata
 
     #output csv file
     def export(self, default = 'csv')
@@ -94,4 +91,3 @@ if __name__=='__main__':
     for arg in sys.argv[1:]:
         print('{0},{1},{2:.2f},{3:.2f},{4:.2f}'.format(self.calc_fordata()))
 
-#exec
