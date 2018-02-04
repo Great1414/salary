@@ -32,8 +32,8 @@ class Config(object):
         self.config = self._read_config()
 
     def _read_config(self):
-        config_path = args.config_path
-        config = {}
+        config_path = args.config_path()
+        config = {}  
         with open(config_path) as confignews:
             for one_config in confignews.readlines():
                 news = one_config.strip().split('=')[0]
@@ -47,10 +47,10 @@ config = Config()
 class UserData(object):
     
     def __init__(self):
-        self.userdata = self._read_users_data
+        self.userdata = self._read_users_data()
     
     def _read_users_data(self):
-        userdata_path = args.userdata_path     
+        userdata_path = args.userdata_path()     
         userdata = []
         with open(userdata_path) as datanews:
             for one_data in datanews.readlines():
@@ -71,19 +71,29 @@ class IncomeTax(object):
     def __init__(self, userdata):
         self.userdata = userdata
     #salary after tax
-    def calc_fordata(self):
+    @staticmethod
+    def calc_fordata(wage):
     #social security tax
-        for oneid in userdata._read_user_data:
-            if oneid[1] < config._read_config('JiShuL'):
-                sstax = config._read_config('JiShuL')*0.165
-            elif  oneid[1] > config._read_config('JiShuH'):
-                sstax = config._read_config('JiShuH')*0.165
-            else:
-                sstax = oneid[1]*0.165           
-            taxwage = oneid[1] - sstax
-        return taxwage
+        if wage < config._read_config('JiShuL')
+            return config._read_config('JiShuL')*0.165
+        if wage > config._read_config('JiShuH')
+            return config._read_config('JiShuH')*0.165
+        else:
+            return wage*0.165
+       # for oneid in userdata._read_user_data:
+        #    if oneid[1] < config._read_config('JiShuL'):
+         #       sstax = config._read_config('JiShuL')*0.165
+          #  elif  oneid[1] > config._read_config('JiShuH'):
+           #     sstax = config._read_config('JiShuH')*0.165
+           # else:
+           #     sstax = oneid[1]*0.165           
+           # taxwage = oneid[1] - sstax
+       # return taxwage
 # tax_oneself
-    def tax_for_one(taxwage):        
+    @classmethod
+    def tax_for_one(cls, wage):
+        social_wage = cls.cal_fordata(wage) 
+        taxwage = wage - social_wage       
         if taxwage<=0:
             tax_self = 0
         elif taxwage<=1500:
@@ -101,15 +111,17 @@ class IncomeTax(object):
         else:
             tax_self = taxwage*0.45-13505
         return tax_self   
+    #the money we can get at the end
     def money(self):
-        for oneid in userdata._read_user_data:
-            get_money = oneid[1] - sstax - tax_self
-            comployeedata = ['{}'.oneid[0],'{}'.oneid[1],'{:.2f}'.sstax, '{:.2f}'.tax_self,'{:.2f}'.get_money ]
+        comployeedata= []
+        for idnum, wage in self.userdata:
+            get_money = wage -self.calc_fordata() - self.tax_for_one
+            comployeedata.append = ('{}'.idnum,'{}'.wage,'{:.2f}'.self.calc_fordata(), '{:.2f}'.self.tax_for_one,'{:.2f}'.get_money)
         return comployeedata
 
     #output csv file
     def export(self, default = 'csv'):
-        result = IncomeTax.money()
+        result = self.money()
         with open(args.export_path, 'w', newline = '') as f:
             writer = csv.writer(f)
             writer.writerows(result)
@@ -118,4 +130,4 @@ class IncomeTax(object):
 
 if __name__=='__main__':   
     last_money = IncomeTax(UserData()) 
-    last_money.export()
+    last_money.export)
