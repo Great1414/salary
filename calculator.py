@@ -74,9 +74,9 @@ class IncomeTax(object):
     @staticmethod
     def calc_fordata(wage):
     #social security tax
-        if wage < config._read_config('JiShuL')
+        if wage < config._read_config('JiShuL'):
             return config._read_config('JiShuL')*0.165
-        if wage > config._read_config('JiShuH')
+        if wage > config._read_config('JiShuH'):
             return config._read_config('JiShuH')*0.165
         else:
             return wage*0.165
@@ -130,4 +130,4 @@ class IncomeTax(object):
 
 if __name__=='__main__':   
     last_money = IncomeTax(UserData()) 
-    last_money.export)
+    last_money.export()
