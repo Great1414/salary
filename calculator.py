@@ -9,8 +9,12 @@ class Args(object):
     def __init__(self):
         self.args = sys.argv[1:]
     def get_mark(self, option):
-        index = self.args.index(option)
-        return self.args[index + 1]
+        try:
+            index = self.args.index(option)
+            return self.args[index + 1]
+        except (ValueError, IndexError):
+            print('Parameter Error')
+            exit()
     @property
     def config_path(self):
         return self.get_mark('-c')
@@ -58,9 +62,13 @@ class UserData(object):
             for one_data in datanews.readlines():
                # idnum = one_data.strip().split(',')[0]
                # wage = one_data.strip().split(',')[1]
-               # userdata = (idnum.wage)
-                idnum, wage = one_data.strip().split(',')
-                userdata.append((idnum, int(wage)))
+               # userdata = (idnum.wage
+                try:
+                    idnum, wage = one_data.strip().split(',')
+                    userdata.append((idnum, int(wage)))
+                except ValuerError:
+                    print('Parameter Error')
+                    exit()
         return userdata
 
     def __iter__(self):
@@ -95,7 +103,7 @@ class IncomeTax(object):
     @classmethod
     def tax_for_one(cls, wage):
         social_wage = cls.calc_fordata(wage) 
-        taxwage = wage - social_wage       
+        taxwage = wage - social_wage - 3500       
         if taxwage<=0:
             tax_self = 0
         elif taxwage<=1500:
